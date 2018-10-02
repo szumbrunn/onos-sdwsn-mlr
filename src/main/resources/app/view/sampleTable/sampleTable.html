@@ -1,0 +1,62 @@
+<!-- partial HTML -->
+<div id="ov-sample-table">
+    <div class="tabular-header">
+        <h2>SensorNodes ({{tableData.length}} total)</h2>
+        <div class="ctrl-btns">
+            <div class="refresh" ng-class="{active: autoRefresh}"
+                 icon icon-id="refresh" icon-size="36"
+                 tooltip tt-msg="autoRefreshTip"
+                 ng-click="toggleRefresh()"></div>
+        </div>
+    </div>
+
+    <div class="summary-list" onos-table-resize>
+
+            <table>
+                <col width="100">
+                <col width="100">
+                <col width="100">
+                <col width="100">
+                <col width="100">
+                <col width="100">
+
+                <thead class="table-header" onos-sortable-header>
+                    <tr>
+                        <th colId="id" sortable>Node ID </th>
+                       <!-- <th colId="sinkId" sortable>Address </th> -->
+                        <th colId="battery" sortable>Battery </th>
+                        <th colId="temperature" sortable>Temperature</th>
+                        <th colId="humidity" sortable>Humidity</th>
+                        <th colId="light1" sortable>Light (Photosynthetic)</th>
+                        <th colId="light2" sortable>Light (Solar)</th>
+                    </tr>
+                </thead>
+                <tbody class="table-body">
+                    <tr ng-if="!tableData" class="no-data">
+                        <td colspan="7">
+                            {{annots.no_rows_msg}}
+                        </td>
+                    </tr>
+                    <tr ng-repeat="sensorNodeInfo in tableData track by $index"
+                        ng-click="selectCallback($event, sensorNodeInfo)"
+                        ng-class="{selected: sensorNodeInfo.id === selId}">
+                        <td>{{sensorNodeInfo.id}}</td>
+                        <!--<td>{{sensorNodeInfo.sinkId}}</td>-->
+                        <td><span ng-if="sensorNodeInfo.temperature <= 50">{{sensorNodeInfo.battery}}</span><span ng-if="sensorNodeInfo.temperature > 50">-</span></td>
+                        <td><span ng-if="sensorNodeInfo.temperature <= 50">{{sensorNodeInfo.temperature}}</span><span ng-if="sensorNodeInfo.temperature > 50">-</span></td>
+                        <td><span ng-if="sensorNodeInfo.temperature <= 50">{{sensorNodeInfo.humidity}}</span><span ng-if="sensorNodeInfo.temperature > 50">-</span></td>
+                        <td><span ng-if="sensorNodeInfo.temperature <= 50">{{sensorNodeInfo.light1}}</span><span ng-if="sensorNodeInfo.temperature > 50">-</span></td>
+                        <td><span ng-if="sensorNodeInfo.temperature <= 50">{{sensorNodeInfo.light2}}</span><span ng-if="sensorNodeInfo.temperature > 50">-</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <table>
+
+            </table>
+
+    </div>
+
+    <ov-sample-table-item-details-panel></ov-sample-table-item-details-panel>
+</div>
